@@ -1,0 +1,6 @@
+**/printer-*.cfg
+**/*obico*
+**/.moonraker.conf.bkp
+**/crowsnest.conf.*
+/KAMP
+/KOMB
