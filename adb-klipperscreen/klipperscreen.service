@@ -1,0 +1,19 @@
+[Unit]
+Description=KlipperScreen ADB Integration
+After=network.target
+Requires=network-online.target adb_monitor.service
+
+[Service]
+Type=forking
+User=root
+Group=root
+WorkingDirectory=/home/orangepi/printer_data/config/adb-klipperscreen
+ExecStart=/home/orangepi/printer_data/config/adb-klipperscreen/klipperscreen_service.sh start
+ExecStop=/home/orangepi/printer_data/config/adb-klipperscreen/klipperscreen_service.sh stop
+TimeoutStopSec=30
+Restart=on-failure
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
