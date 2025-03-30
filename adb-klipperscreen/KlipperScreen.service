@@ -1,0 +1,27 @@
+# sudo ln -s /caminho/para/seu/arquivo/KlipperScreen.service /etc/systemd/system/KlipperScreen.service
+[Unit]
+Description=KlipperScreen Service with ADB and X Server
+After=network.target docker.service
+StartLimitIntervalSec=0
+# Wants=adb-ready.target
+
+[Service]
+Type=exec
+User=orangepi
+Group=orangepi
+WorkingDirectory=/home/orangepi/printer_data/config/adb-klipperscreen
+ExecStartPre=/bin/bash -c 'until docker ps | grep -i adbd; do sleep 2; done'
+ExecStart=/bin/bash -c 'source /home/orangepi/.bashrc && exec /home/orangepi/printer_data/config/adb-klipperscreen/launch_KlipperScreen.sh'
+ExecStop=/bin/bash -c 'source /home/orangepi/.bashrc && exec /home/orangepi/printer_data/config/adb-klipperscreen/close_KlipperScreen.sh'
+TimeoutStartSec=900
+TimeoutStopSec=300
+Restart=always
+RestartSec=10
+Environment="DISPLAY=:100"
+Environment="XAUTHORITY=/home/orangepi/.Xauthority"
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+Environment="ADB_EXTRA_ARGS=-H host.docker.internal"
+Environment="DOCKER_HOST=unix:///var/run/docker.sock"
+
+[Install]
+WantedBy=multi-user.target
