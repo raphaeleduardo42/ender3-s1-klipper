@@ -1,4 +1,4 @@
-# sudo ln -s /caminho/para/seu/arquivo/KlipperScreen.service /etc/systemd/system/KlipperScreen.service
+# sudo ln -s /home/orangepi/printer_data/config/adb-klipperscreen/KlipperScreen.service /etc/systemd/system/KlipperScreen.service -f
 [Unit]
 Description=KlipperScreen Service with ADB and X Server
 After=network.target docker.service
